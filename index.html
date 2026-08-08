@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VidyaSetu — Bridge to Knowledge</title>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-brand" onclick="showPage('welcome')">VidyaSetu</div>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-btn nav-logged-out" onclick="showPage('welcome')">Home</button>
+    <button class="nav-btn nav-logged-out" onclick="goLogin('student')">&#128100; Student Login</button>
+    <button class="nav-btn nav-logged-out" onclick="goLogin('org')">&#127979; Organization Login</button>
+
+    <button class="nav-btn nav-logged-in" id="nb-interests" style="display:none" onclick="showPage('interests')">My Interests</button>
+    <button class="nav-btn nav-logged-in" id="nb-courses"   style="display:none" onclick="goDashboard()">My Courses</button>
+    <div class="nav-user nav-logged-in" id="navUser" style="display:none">
+      <div class="nav-avatar" id="navAvatar">A</div>
+      <span class="nav-uname" id="navUname"></span>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </div>
+</nav>
+
+<!-- WELCOME PAGE -->
+<div class="page active" id="page-welcome">
+
+  <!-- HERO CAROUSEL -->
+  <div class="hero-wrap">
+    <div class="hero-track" id="heroTrack">
+
+      <!-- Slide 1 -->
+      <div class="hero-slide">
+        <div class="hs-content">
+          <p class="hs-eyebrow">One Platform · Every Course</p>
+          <h1 class="hs-title">Your Bridge to the<br>Best Online Learning</h1>
+          <p class="hs-body">VidyaSetu aggregates the courses from platforms like NPTEL, SWAYAM, Coursera, edX, MIT OpenCourseWare and many more ranked by AI, personalised for you.</p>
+          <div class="hs-btns">
+            <button class="btn-hs-fill" onclick="goRegister('student')">Get Started Free</button>
+            <button class="btn-hs-line" onclick="goLogin('org')">For Institutions</button>
+          </div>
+        </div>
+        <div class="hs-graphic">
+          <div class="hsg-orbit">
+            <div class="hsg-core">📚</div>
+            <div class="hsg-tag hsg-t1">NPTEL</div>
+            <div class="hsg-tag hsg-t2">Coursera</div>
+            <div class="hsg-tag hsg-t3">SWAYAM</div>
+            <div class="hsg-tag hsg-t4">edX</div>
+            <div class="hsg-tag hsg-t5">MIT OCW</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="hero-slide">
+        <div class="hs-content">
+          <p class="hs-eyebrow">Personalized course discovery</p>
+          <h1 class="hs-title">Stop Searching.<br>Start Learning.</h1>
+          <p class="hs-body">Tell us your interests once and our system instantly recommends the most relevant courses across different platforms, filtered to your level and career goals.</p>
+          <div class="hs-btns">
+            <button class="btn-hs-fill" onclick="goRegister('student')">Find My Courses</button>
+          </div>
+        </div>
+        <div class="hs-graphic">
+          <div class="hsg-orbit">
+            <div class="hsg-core">🤖</div>
+            <div class="hsg-tag hsg-t1">Data Science</div>
+            <div class="hsg-tag hsg-t2">AI &amp; ML</div>
+            <div class="hsg-tag hsg-t3">Engineering</div>
+            <div class="hsg-tag hsg-t4">Medicine</div>
+            <div class="hsg-tag hsg-t5">Law &amp; Arts</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="hero-arrow harr-l" onclick="heroMove(-1)">&#8249;</button>
+    <button class="hero-arrow harr-r" onclick="heroMove(1)">&#8250;</button>
+    <div class="hero-dots" id="heroDots"></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="hiw-section">
+    <div class="hiw-inner">
+      <h2 class="sec-title" style="text-align:center;margin-bottom:48px">How It Works</h2>
+      <div class="hiw-row">
+        <div class="hiw-step">
+          <div class="hiw-circle">01</div>
+          <div class="hiw-ico">👤</div>
+          <div class="hiw-stitle">Create Your Profile</div>
+          <div class="hiw-sdesc">Sign up in seconds as a student or institution for completely free.</div>
+        </div>
+        <div class="hiw-connector"></div>
+        <div class="hiw-step">
+          <div class="hiw-circle">02</div>
+          <div class="hiw-ico">🎯</div>
+          <div class="hiw-stitle">Pick Your Interests</div>
+          <div class="hiw-sdesc">Select from various domains like Data Science, Law, Medicine, Design and more.</div>
+        </div>
+        <div class="hiw-connector"></div>
+        <div class="hiw-step">
+          <div class="hiw-circle">03</div>
+          <div class="hiw-ico">⚡</div>
+          <div class="hiw-stitle">Get Matched Instantly</div>
+          <div class="hiw-sdesc">Our System surfaces the best courses from every major platform, ranked for you.</div>
+        </div>
+        <div class="hiw-connector"></div>
+        <div class="hiw-step">
+          <div class="hiw-circle">04</div>
+          <div class="hiw-ico">🚀</div>
+          <div class="hiw-stitle">Start Learning</div>
+          <div class="hiw-sdesc">Start learning with courses tailored to your goals and convenience.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-copy">© 2026 VidyaSetu · All rights reserved</div>
+  </div>
+</div>
+
+<!-- STUDENT — REGISTER -->
+<div class="page" id="page-student-register">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-card-heading">Create New Account</div>
+      <div class="form-grp">
+        <label class="form-lbl">Full Name</label>
+        <input class="form-inp" id="sr-name" placeholder="Enter your full name" autocomplete="off"/>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Email Address</label>
+        <input class="form-inp" id="sr-email" type="email" placeholder="Enter your email" autocomplete="off"/>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Password</label>
+        <input class="form-inp" id="sr-pw" type="password" placeholder="Create a password (min 6 chars)" autocomplete="new-password"/>
+      </div>
+      <div class="auth-msg auth-err"     id="sr-err"     style="display:none"></div>
+      <div class="auth-msg auth-success" id="sr-success" style="display:none"></div>
+      <button class="btn-primary" onclick="submitStudentRegister()">Create Account</button>
+      <div class="auth-switch">Already registered? <button class="auth-switch-link" onclick="goLogin('student')">Please Login →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT — LOGIN -->
+<div class="page" id="page-student-login">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-card-heading">Welcome Back</div>
+      <div class="form-grp">
+        <label class="form-lbl">Email Address</label>
+        <input class="form-inp" id="sl-email" type="email" placeholder="Enter your email" autocomplete="off"/>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Password</label>
+        <input class="form-inp" id="sl-pw" type="password" placeholder="Enter your password" autocomplete="new-password"/>
+      </div>
+      <div class="auth-msg auth-err"     id="sl-err"     style="display:none"></div>
+      <div class="auth-msg auth-success" id="sl-success" style="display:none"></div>
+      <button class="btn-primary" onclick="submitStudentLogin()">Login</button>
+      <div class="auth-switch">New user? <button class="auth-switch-link" onclick="goRegister('student')">Register →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ORGANIZATION — REGISTER -->
+<div class="page" id="page-org-register">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-card-heading">Create New Account</div>
+      <div class="form-grp">
+        <label class="form-lbl">Organization Name</label>
+        <input class="form-inp" id="or-name" placeholder="Enter your organization name" autocomplete="off"/>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Email Address</label>
+        <input class="form-inp" id="or-email" type="email" placeholder="Enter your email" autocomplete="off"/>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Password</label>
+        <input class="form-inp" id="or-pw" type="password" placeholder="Create a password (min 6 chars)" autocomplete="new-password"/>
+      </div>
+      <div class="auth-msg auth-err"     id="or-err"     style="display:none"></div>
+      <div class="auth-msg auth-success" id="or-success" style="display:none"></div>
+      <button class="btn-primary" onclick="submitOrgRegister()">Create Account</button>
+      <div class="auth-switch">Already registered? <button class="auth-switch-link" onclick="goLogin('org')">Please Login →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ORGANIZATION — LOGIN -->
+<div class="page" id="page-org-login">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-card-heading">Welcome Back</div>
+      <div class="form-grp">
+        <label class="form-lbl">Email Address</label>
+        <input class="form-inp" id="ol-email" type="email" placeholder="Enter your email" autocomplete="off"/>
+      </div>
+      <div class="form-grp">
+        <label class="form-lbl">Password</label>
+        <input class="form-inp" id="ol-pw" type="password" placeholder="Enter your password" autocomplete="new-password"/>
+      </div>
+      <div class="auth-msg auth-err"     id="ol-err"     style="display:none"></div>
+      <div class="auth-msg auth-success" id="ol-success" style="display:none"></div>
+      <button class="btn-primary" onclick="submitOrgLogin()">Login</button>
+      <div class="auth-switch">New user? <button class="auth-switch-link" onclick="goRegister('org')">Register →</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERESTS PAGE -->
+<div class="page" id="page-interests">
+  <div class="int-wrap">
+    <div class="int-title" id="intTitle">Hello </div>
+    <div class="int-sub">Answer a few quick questions and we'll instantly match you with the best courses from NPTEL, SWAYAM, Coursera, MIT and more — ranked by relevance to you.</div>
+
+    <!-- STEPPED FILTER -->
+    <div class="filter-wizard" id="filterWizard">
+
+      <!-- Progress Bar -->
+      <div class="fw-progress-wrap">
+        <div class="fw-progress-bar" id="fwProgressBar"></div>
+      </div>
+      <div class="fw-steps-label" id="fwStepsLabel">Step 1 of 4</div>
+
+      <!-- STEP 1: Domain -->
+      <div class="fw-step active" id="fw-step-1">
+        <div class="fw-step-header">
+          <div class="fw-step-num">01</div>
+          <div>
+            <div class="fw-step-title">Choose Your Domain</div>
+            <div class="fw-step-hint">Select the broad field you want to explore</div>
+          </div>
+        </div>
+        <div class="fw-domain-grid" id="domainGrid"></div>
+      </div>
+
+      <!-- STEP 2: Interests -->
+      <div class="fw-step" id="fw-step-2">
+        <div class="fw-step-header">
+          <div class="fw-step-num">02</div>
+          <div>
+            <div class="fw-step-title">Pick Your Interests</div>
+            <div class="fw-step-hint">Select one or more topics within your chosen domain</div>
+          </div>
+        </div>
+        <div class="fw-sel-count" id="fwSelCount">0 interests selected</div>
+        <div class="chips" id="chipsContainer"></div>
+        <div class="fw-nav-row">
+          <button class="fw-back-btn" onclick="fwGoto(1)">← Back</button>
+          <button class="fw-next-btn" id="fwStep2Next" onclick="fwGoto(3)" disabled>Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Duration -->
+      <div class="fw-step" id="fw-step-3">
+        <div class="fw-step-header">
+          <div class="fw-step-num">03</div>
+          <div>
+            <div class="fw-step-title">Preferred Duration</div>
+            <div class="fw-step-hint">How long do you want your courses to be?</div>
+          </div>
+        </div>
+        <div class="fw-option-grid" id="durationGrid"></div>
+        <div class="fw-nav-row">
+          <button class="fw-back-btn" onclick="fwGoto(2)">← Back</button>
+          <button class="fw-next-btn" id="fwStep3Next" onclick="fwGoto(4)" disabled>Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Level -->
+      <div class="fw-step" id="fw-step-4">
+        <div class="fw-step-header">
+          <div class="fw-step-num">04</div>
+          <div>
+            <div class="fw-step-title">Your Skill Level</div>
+            <div class="fw-step-hint">What's your current level in the chosen topics?</div>
+          </div>
+        </div>
+        <div class="fw-option-grid" id="levelGrid"></div>
+        <div class="fw-nav-row">
+          <button class="fw-back-btn" onclick="fwGoto(3)">← Back</button>
+        </div>
+        <button class="btn-go" id="btnGo" onclick="goRecommend()" disabled style="margin-top:20px">Select a level to continue</button>
+      </div>
+
+    </div>
+    <!-- END STEPPED FILTER -->
+
+    <div class="faq-chat-section" style="margin-top:48px">
+      <!-- FAQ Column -->
+      <div class="faq-col">
+        <h2 class="faq-heading">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q">How are the courses ranked? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Are the courses free or paid? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I change my interests later? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Will I get certificates for these courses? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chatbot Column -->
+      <div class="chat-col">
+        <div class="chat-widget">
+          <div class="chat-header">
+            <div class="chat-avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8.01" y2="16"></line><line x1="16" y1="16" x2="16.01" y2="16"></line></svg>
+            </div>
+            <div class="chat-info">
+              <div class="chat-title">VidyaSetu Assistant</div>
+              <div class="chat-status"><span class="status-dot"></span> Online &amp; ready to help</div>
+            </div>
+          </div>
+          <div class="chat-body">
+            <div class="chat-msg bot-msg">
+              <div class="msg-text">Hello! Choosing courses can be overwhelming. Would you like me to suggest some trending topics based on your profile?</div>
+              <div class="msg-time">Assistant &middot; Just now</div>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <div class="chat-input-wrapper">
+              <input type="text" class="chat-input" placeholder="Ask about courses, certs or careers..." autocomplete="off">
+              <button class="chat-send">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </div>
+            <div class="chat-note">Typically responds in under 1 minute</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DASHBOARD PAGE -->
+<div class="page" id="page-dashboard">
+  <div class="dash-wrap">
+    <div class="dash-hd">
+      <div>
+        <div class="dash-greeting">Your <span>Learning Hub</span></div>
+        <div class="dash-meta" id="dashMeta"></div>
+      </div>
+      <button class="btn-refilter" onclick="showPage('interests')">✦ Change Interests</button>
+    </div>
+    <div class="itag-row" id="itagRow"></div>
+    <div class="kpi-row"  id="kpiRow"></div>
+    <div class="cs-head">
+      <div class="cs-title" id="csTitle">Recommended Courses</div>
+      <div class="fpills" id="fpills"></div>
+    </div>
+    <div id="courseGrid"></div>
+    
+    <div class="faq-chat-section" style="margin-top: 60px;">
+      <!-- FAQ Column -->
+      <div class="faq-col">
+        <h2 class="faq-heading">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q">How are the courses ranked? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Are the courses free or paid? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I change my interests later? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Will I get certificates for these courses? <span class="faq-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chatbot Column -->
+      <div class="chat-col">
+        <div class="chat-widget">
+          <div class="chat-header">
+            <div class="chat-avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8.01" y2="16"></line><line x1="16" y1="16" x2="16.01" y2="16"></line></svg>
+            </div>
+            <div class="chat-info">
+              <div class="chat-title">VidyaSetu Assistant</div>
+              <div class="chat-status"><span class="status-dot"></span> Online &amp; ready to help</div>
+            </div>
+          </div>
+          <div class="chat-body">
+            <div class="chat-msg bot-msg">
+              <div class="msg-text">Hello! Choosing courses can be overwhelming. Would you like me to suggest some trending topics based on your profile?</div>
+              <div class="msg-time">Assistant &middot; Just now</div>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <div class="chat-input-wrapper">
+              <input type="text" class="chat-input" placeholder="Ask about courses, certs or careers..." autocomplete="off">
+              <button class="chat-send">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </div>
+            <div class="chat-note">Typically responds in under 1 minute</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+(function(){
+  const track = document.getElementById('heroTrack');
+  const dotsEl = document.getElementById('heroDots');
+  if(!track) return;
+  const slides = track.querySelectorAll('.hero-slide');
+  const n = slides.length;
+  let cur = 0, timer;
+
+  slides.forEach((_,i)=>{
+    const d = document.createElement('button');
+    d.className='hero-dot'+(i===0?' active':'');
+    d.onclick=()=>{heroGoTo(i);reset();};
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(i){
+    cur=(i+n)%n;
+    track.style.transform='translateX(-'+(cur*100)+'%)';
+    document.querySelectorAll('.hero-dot').forEach((d,j)=>d.classList.toggle('active',j===cur));
+  }
+  window.heroGoTo=goTo;
+  window.heroMove=function(d){goTo(cur+d);reset();};
+  function reset(){clearInterval(timer);timer=setInterval(()=>goTo(cur+1),5000);}
+  reset();
+})();
+</script>
+</body>
+</html>
