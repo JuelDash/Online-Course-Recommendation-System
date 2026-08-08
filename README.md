@@ -1,1 +1,1 @@
-# VidyaSetu-Online-Course-Recommendation-System
+# Online-Course-Recommendation-System
